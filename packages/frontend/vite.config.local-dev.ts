@@ -9,9 +9,9 @@ dns.setDefaultResultOrder('ipv4first');
 
 const defaultConfig = getConfig();
 
-const { port } = yaml.load(await readFile('../../.config/default.yml', 'utf-8'));
+const { port, backend2Port } = yaml.load(await readFile('../../.config/default.yml', 'utf-8'));
 
-const httpUrl = `http://localhost:${port}/`;
+const httpUrl = `http://localhost:${backend2Port}/`;
 const websocketUrl = `ws://localhost:${port}/`;
 
 const devConfig = {

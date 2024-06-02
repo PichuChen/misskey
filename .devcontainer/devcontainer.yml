@@ -17,18 +17,28 @@ url: http://127.0.0.1:3000/
 #
 # Misskey requires a reverse proxy to support HTTPS connections.
 #
-#                 +----- https://example.tld/ ------------+
-#   +------+      |+-------------+      +----------------+|
-#   | User | ---> || Proxy (443) | ---> | Misskey (3000) ||
-#   +------+      |+-------------+      +----------------+|
-#                 +---------------------------------------+
+#                 +---------- https://example.tld/ ------------+
+#   +------+      |+-------------+      +---------------------+|
+#   | User | ---> || Proxy (443) | ---> | Misskey (*1) (3001) ||
+#   +------+      |+-------------+      +---------------------+|
+#                 |                                |           |
+#                 |                                V           |
+#                 |                     +---------------------+|
+#                 |                     | Misskey (*2) (3000) ||
+#                 |                     +---------------------+|
+#                 +--------------------------------------------+
 #
 #   You need to set up a reverse proxy. (e.g. nginx)
 #   An encrypted connection with HTTPS is highly recommended
 #   because tokens may be transferred in GET requests.
+#
+#   *1 is a golang / rust server.
+#   *2 is a nodejs (original) server.
 
-# The port that your Misskey server should listen on.
+# The port that your Misskey nodejs server should listen on.
 port: 3000
+# The port that your Misskey golang / rust server should listen on.
+backend2Port: 3001
 
 #   ┌──────────────────────────┐
 #───┘ PostgreSQL configuration └────────────────────────────────
